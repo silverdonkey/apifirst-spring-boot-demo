@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.2.2</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+    <groupId>de.nikoconsulting.demo</groupId>
+    <artifactId>openapi-spring-boot-demo</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>openapi-spring-boot-demo</name>
+    <description>Demo project for Spring Boot Service generated from OpenAPI Definition</description>
+
+    <properties>
+        <java.version>21</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <springdoc.version>2.3.0</springdoc.version>
+        <swagger-ui.version>5.3.1</swagger-ui.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!--SpringDoc dependencies -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>${springdoc.version}</version>
+        </dependency>
+        <!-- @Nullable annotation -->
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+            <version>3.0.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-yaml</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.openapitools</groupId>
+            <artifactId>jackson-databind-nullable</artifactId>
+            <version>0.2.6</version>
+        </dependency>
+        <!-- Bean Validation API support -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <!-- remove this, otherwise your tests wont run with maven build-->
+            <!-- exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions -->
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <repositories>
+        <repository>
+            <id>repository.spring.milestone</id>
+            <name>Spring Milestone Repository</name>
+            <url>https://repo.spring.io/milestone</url>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>spring-milestones</id>
+            <url>https://repo.spring.io/milestone</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
+                <version>7.2.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <inputSpec>${project.basedir}/src/main/resources/service-api.yaml</inputSpec>
+                            <generatorName>spring</generatorName>
+                            <apiPackage>de.nikoconsulting.demo.api</apiPackage>
+                            <modelPackage>de.nikoconsulting.demo.model</modelPackage>
+
+
+                            <supportingFilesToGenerate>
+                                ApiUtil.java
+                            </supportingFilesToGenerate>
+
+                            <!-- Added lines -->
+                            <!-- Uncomment this to generate only specific models. -->
+                            <!--                            <modelsToGenerate>Category,Pet</modelsToGenerate>-->
+                            <!-- SchemaMappings can be used to omit a model from generation, and use a custom class instead.
+                            <schemaMappings>
+                                <schemaMapping>
+                                    GenericEntity=de.nikoconsulting.demo.model.GenericEntity
+                                </schemaMapping>
+                            </schemaMappings>
+                            -->
+                            <!-- End of added lines -->
+                            <configOptions>
+                                <modelPackage>de.nikoconsulting.demo.model</modelPackage>
+                                <sourceFolder>src/main/java</sourceFolder>
+                                <groupId>de.nikoconsulting.demo</groupId>
+                                <invokerPackage>de.nikoconsulting.demo</invokerPackage>
+                                <title>openapi-spring-boot</title>
+                                <artifactId>openapi-spring-boot-demo</artifactId>
+                                <artifactDescription>API First Demo</artifactDescription>
+                                <useSpringBoot3>true</useSpringBoot3>
+                                <artifactVersion>0.0.1</artifactVersion>
+                                <configPackage>de.nikoconsulting.demo.config</configPackage>
+                                <basePackage>de.nikoconsulting.demo</basePackage>
+                                <!--Can be set to true after implementing the interfaces. The ApiUtil class can then be deleted. -->
+                                <skipDefaultInterface>false</skipDefaultInterface>
+                                <apiPackage>de.nikoconsulting.demo.api</apiPackage>
+                                <returnSuccessCode>false</returnSuccessCode>
+                                <!-- Do not generate controller again. -->
+                                <interfaceOnly>false</interfaceOnly>
+                                <useTags>true</useTags>
+                                <delegatePattern>true</delegatePattern>
+                                <!-- End of added lines -->
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

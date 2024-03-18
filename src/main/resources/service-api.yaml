@@ -1,0 +1,162 @@
+openapi: 3.0.3
+info:
+  title: OpenAPI 3.0 Spring Boot 3 Demo
+  description: |-
+    This is a sample Spring Boot 3 Server based on the OpenAPI 3.0 specification.
+    
+    Some useful links:
+    - [The Project repository](https://github.com/silverdonkey/openapi-spring-boot-demo)
+    - [The source API definition for the Demo](https://github.com/silverdonkey/openapi-spring-boot-demo/blob/master/src/main/resources/service-api.yaml)
+  version: "1.0.0"
+
+  contact:
+    email: orozov@web.de
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+
+servers:
+  - description: Dev Local
+    url: http://localhost:8080/api/v3
+tags:
+  - name: entity
+    description: It's a generic Entity for demo purposes
+    externalDocs:
+      description: Find out more
+      url: http://swagger.io
+
+paths:
+  /entity/all:
+    get:
+      tags:
+        - entity
+      summary: List all entities
+      description: Loads a list of all existing entities
+      operationId: listAllEntities
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                $ref: "#/components/schemas/GenericEntities"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/GenericEntities"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /entity:
+    post:
+      tags:
+        - entity
+      summary: Create an entity
+      operationId: createEntity
+      requestBody:
+        description: Create a new entity in the DB
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenericEntity'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/GenericEntity'
+        required: true
+      responses:
+        '201':
+          description: successful operation
+        '400':
+          description: Invalid input
+        '422':
+          description: Validation exception
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /entity/findby/{id}:
+    get:
+      tags:
+        - entity
+      summary: Find entity by Id
+      operationId: findEntityById
+      parameters:
+        - name: id
+          in: path
+          description: The id of the entity to retrieve
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericEntity'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GenericEntity'
+        '400':
+          description: Invalid request
+        '404':
+          description: Entity not found
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    GenericEntity:
+      type: object
+      required:
+        - id
+        - value
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 5
+        value:
+          type: string
+          example: entity_name_5
+    GenericEntities:
+      description: List of GenericEntity Objects
+      type: array
+      items:
+        $ref: "#/components/schemas/GenericEntity"
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+          example: 101
+        message:
+          type: string
+          example: Oops! Something unexpected happened!
