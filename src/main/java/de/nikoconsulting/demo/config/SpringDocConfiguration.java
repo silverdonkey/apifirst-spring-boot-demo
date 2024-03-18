@@ -19,7 +19,8 @@ public class SpringDocConfiguration {
                 .info(
                         new Info()
                                 .title("OpenAPI 3.0 Spring Boot 3 Demo")
-                                .description("This is a sample Spring Boot 3 Server based on the OpenAPI 3.0 specification.  Some useful links: - [The Project repository](https://github.com/silverdonkey/openapi-spring-boot-demo) - [The source API definition for the Demo](https://github.com/silverdonkey/openapi-spring-boot-demo/blob/master/src/main/resources/service-api.yaml)")
+                                .description("This is a sample Spring Boot 3 Server based on the OpenAPI 3.0 specification.\n" +
+                                        "Some useful links: \n- [The Project repository](https://github.com/silverdonkey/apifirst-spring-boot-demo) \n- [The source API definition for the Demo](https://github.com/silverdonkey/apifirst-spring-boot-demo/blob/master/src/main/resources/service-api.yaml)")
                                 .contact(
                                         new Contact()
                                                 .email("orozov@web.de")
