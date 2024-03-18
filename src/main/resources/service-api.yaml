@@ -4,9 +4,10 @@ info:
   description: |-
     This is a sample Spring Boot 3 Server based on the OpenAPI 3.0 specification.
     
+    
     Some useful links:
-    - [The Project repository](https://github.com/silverdonkey/openapi-spring-boot-demo)
-    - [The source API definition for the Demo](https://github.com/silverdonkey/openapi-spring-boot-demo/blob/master/src/main/resources/service-api.yaml)
+    - [The Project repository](https://github.com/silverdonkey/apifirst-spring-boot-demo)
+    - [The source API definition for the Demo](https://github.com/silverdonkey/apifirst-spring-boot-demo/blob/master/src/main/resources/service-api.yaml)
   version: "1.0.0"
 
   contact:
@@ -44,10 +45,13 @@ paths:
             application/json:
               schema:
                 type: array
-                $ref: "#/components/schemas/GenericEntities"
+                items:
+                  $ref: '#/components/schemas/GenericEntity'
             application/xml:
               schema:
-                $ref: "#/components/schemas/GenericEntities"
+                type: array
+                items:
+                  $ref: '#/components/schemas/GenericEntity'
         default:
           description: unexpected error
           content:
@@ -142,11 +146,6 @@ components:
         value:
           type: string
           example: entity_name_5
-    GenericEntities:
-      description: List of GenericEntity Objects
-      type: array
-      items:
-        $ref: "#/components/schemas/GenericEntity"
     Error:
       type: object
       required:

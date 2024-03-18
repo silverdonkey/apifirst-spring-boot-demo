@@ -5,7 +5,6 @@ import de.nikoconsulting.demo.model.GenericEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +18,7 @@ public class EntitiesApiDelegateImpl implements EntityApiDelegate {
 
     Logger logger = LoggerFactory.getLogger(EntitiesApiDelegateImpl.class);
 
-    private List<GenericEntity> entityList = new ArrayList<>();
+    private final List<GenericEntity> entityList = new ArrayList<>();
 
     {
         entityList.add(new GenericEntity(1L, "entity_1"));
