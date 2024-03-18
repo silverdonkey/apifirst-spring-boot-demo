@@ -10,9 +10,9 @@
     </parent>
 
     <groupId>de.nikoconsulting.demo</groupId>
-    <artifactId>openapi-spring-boot-demo</artifactId>
+    <artifactId>apifirst-spring-boot-demo</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>openapi-spring-boot-demo</name>
+    <name>apifirst-spring-boot-demo</name>
     <description>Demo project for Spring Boot Service generated from OpenAPI Definition</description>
 
     <properties>
@@ -139,8 +139,8 @@
                                 <sourceFolder>src/main/java</sourceFolder>
                                 <groupId>de.nikoconsulting.demo</groupId>
                                 <invokerPackage>de.nikoconsulting.demo</invokerPackage>
-                                <title>openapi-spring-boot</title>
-                                <artifactId>openapi-spring-boot-demo</artifactId>
+                                <title>apifirst-spring-boot</title>
+                                <artifactId>apifirst-spring-boot-demo</artifactId>
                                 <artifactDescription>API First Demo</artifactDescription>
                                 <useSpringBoot3>true</useSpringBoot3>
                                 <artifactVersion>0.0.1</artifactVersion>
