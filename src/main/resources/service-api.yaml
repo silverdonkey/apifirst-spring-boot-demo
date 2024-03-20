@@ -133,6 +133,35 @@ paths:
             application/xml:
               schema:
                 $ref: '#/components/schemas/Error'
+  /entity/{id}:
+    delete:
+      tags:
+        - entity
+      summary: Delete entity by Id
+      operationId: deleteEntityById
+      parameters:
+        - name: id
+          in: path
+          description: The id of the entity to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: Entity deleted
+        '404':
+          description: Entity not found
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Error'
+
 components:
   schemas:
     GenericEntity:

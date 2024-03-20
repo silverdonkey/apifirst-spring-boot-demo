@@ -55,7 +55,7 @@ public class EntityApiDelegateImpl implements EntityApiDelegate {
                 return new ResponseEntity<>(Optional.of(entity).get(), HttpStatus.OK);
             }
         }
-        final String msg = "An entity with this id not found: " + id;
+        final String msg = "No entity found with id: " + id;
         logger.error(msg);
         throw new ResourceNotFoundException(msg);
     }

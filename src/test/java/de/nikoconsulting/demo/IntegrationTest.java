@@ -66,4 +66,11 @@ public class IntegrationTest {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isConflict());
     }
+
+    @Test
+    public void whenDelete_thenStatusIsNotImpl() throws Exception {
+        this.mockMvc.perform(MockMvcRequestBuilders.delete("/api/v3/entity/" + 1))
+                .andExpect(MockMvcResultMatchers.status().isNotImplemented());
+    }
+
 }
