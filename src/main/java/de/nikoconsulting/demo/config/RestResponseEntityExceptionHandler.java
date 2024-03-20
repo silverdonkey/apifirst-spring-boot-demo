@@ -1,5 +1,6 @@
 package de.nikoconsulting.demo.config;
 
+import de.nikoconsulting.demo.delegate.ResourceNotFoundException;
 import de.nikoconsulting.demo.model.Error;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,17 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @RestControllerAdvice
 public class RestResponseEntityExceptionHandler
         extends ResponseEntityExceptionHandler {
+
+    @ExceptionHandler(value
+            = {ResourceNotFoundException.class})
+    protected ResponseEntity<Object> handleNotFound(
+            RuntimeException ex, WebRequest request) {
+
+        Error bodyOfResponse = new Error(404, ex.getMessage());
+
+        return handleExceptionInternal(ex, bodyOfResponse,
+                new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+    }
 
     @ExceptionHandler(value
             = {IllegalArgumentException.class, IllegalStateException.class})

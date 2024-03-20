@@ -13,10 +13,10 @@ import java.util.List;
 import java.util.Optional;
 
 //@Service
-public class EntitiesApiDelegateImpl implements EntityApiDelegate {
+public class EntityApiDelegateImpl implements EntityApiDelegate {
 
     private final List<GenericEntity> entityList = new ArrayList<>();
-    Logger logger = LoggerFactory.getLogger(EntitiesApiDelegateImpl.class);
+    Logger logger = LoggerFactory.getLogger(EntityApiDelegateImpl.class);
 
     {
         entityList.add(new GenericEntity(1L, "entity_1"));
@@ -55,7 +55,9 @@ public class EntitiesApiDelegateImpl implements EntityApiDelegate {
                 return new ResponseEntity<>(Optional.of(entity).get(), HttpStatus.OK);
             }
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        final String msg = "An entity with this id not found: " + id;
+        logger.error(msg);
+        throw new ResourceNotFoundException(msg);
     }
 
 }
