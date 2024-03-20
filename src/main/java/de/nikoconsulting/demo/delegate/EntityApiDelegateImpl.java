@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-//@Service
+@Service
 public class EntityApiDelegateImpl implements EntityApiDelegate {
 
     private final List<GenericEntity> entityList = new ArrayList<>();
