@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -16,9 +15,8 @@ import java.util.Optional;
 //@Service
 public class EntitiesApiDelegateImpl implements EntityApiDelegate {
 
-    Logger logger = LoggerFactory.getLogger(EntitiesApiDelegateImpl.class);
-
     private final List<GenericEntity> entityList = new ArrayList<>();
+    Logger logger = LoggerFactory.getLogger(EntitiesApiDelegateImpl.class);
 
     {
         entityList.add(new GenericEntity(1L, "entity_1"));
@@ -29,7 +27,6 @@ public class EntitiesApiDelegateImpl implements EntityApiDelegate {
 
     @Override
     public ResponseEntity<List<GenericEntity>> listAllEntities() {
-        // simulate slow response
         logger.info("Looking up entities...");
         logger.info("Returning found entities.");
         return new ResponseEntity<>(entityList, HttpStatus.OK);
@@ -37,14 +34,22 @@ public class EntitiesApiDelegateImpl implements EntityApiDelegate {
 
     @Override
     public ResponseEntity<Void> createEntity(GenericEntity entity) {
-        logger.info("Adding a new entity: " + entity.getValue());
+
+        for (GenericEntity ge : entityList) {
+            if (ge.getId().equals(entity.getId())) {
+                final String msg = "An entity with this id already exist: " + entity.getId();
+                logger.error(msg);
+                throw new IllegalArgumentException(msg);
+            }
+        }
+        logger.info("Adding a new entity id: {}, value: {}", entity.getId(), entity.getValue());
         entityList.add(entity);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @Override
     public ResponseEntity<GenericEntity> findEntityById(Long id) {
-        logger.info("Looking up entity by id: " + id);
+        logger.info("Looking up entity by id: {}", id);
         for (GenericEntity entity : entityList) {
             if (entity.getId().equals(id)) {
                 return new ResponseEntity<>(Optional.of(entity).get(), HttpStatus.OK);

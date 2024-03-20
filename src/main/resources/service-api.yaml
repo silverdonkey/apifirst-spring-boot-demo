@@ -40,7 +40,7 @@ paths:
       operationId: listAllEntities
       responses:
         '200':
-          description: successful operation
+          description: Successfully loaded list
           content:
             application/json:
               schema:
@@ -53,7 +53,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/GenericEntity'
         default:
-          description: unexpected error
+          description: Unexpected error
           content:
             application/json:
               schema:
@@ -79,13 +79,15 @@ paths:
         required: true
       responses:
         '201':
-          description: successful operation
+          description: Successfully created
         '400':
           description: Invalid input
+        '409':
+          description: Conflict! An entity with provided id exist already!
         '422':
           description: Validation exception
         default:
-          description: unexpected error
+          description: Unexpected error
           content:
             application/json:
               schema:
